@@ -70,7 +70,7 @@ node('vagrant') {
 
   try {
     sh "vagrant up $BOX --destroy-on-error --provider=$PROVIDER"
-    sh """
+    sh '''
 ARGS=()
 
 if [ ! -z "$TAG" ]; then
@@ -91,7 +91,7 @@ set +o verbose
 source ./stack/loadLSST.bash
 eups distrib install ${ARGS[@]}
 END
-    """
+'''
   }
   finally {
     sh "vagrant destroy --force $BOX"
