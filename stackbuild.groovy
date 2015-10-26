@@ -70,6 +70,28 @@ node('vagrant') {
 
   try {
     sh "vagrant up $BOX --destroy-on-error --provider=$PROVIDER"
+    sh """
+ARGS=()
+
+if [ ! -z "$TAG" ]; then
+  ARGS+=('-t')
+  ARGS+=("$TAG")
+fi
+ARGS+=("$PRODUCTS")
+
+vagrant ssh $BOX <<END
+set -o errexit
+
+set -o verbose
+if grep -q -i "CentOS release 6" /etc/redhat-release; then
+  . /opt/rh/devtoolset-3/enable
+fi
+set +o verbose
+
+source ./stack/loadLSST.bash
+eups distrib install ${ARGS[@]}
+END
+    """
   }
   finally {
     sh "vagrant destroy --force $BOX"
