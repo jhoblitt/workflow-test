@@ -60,13 +60,13 @@ node('vagrant') {
   env.AWS_SUBNET_ID = subnet_id
   env.AWS_SECURITY_GROUPS = security_group_ids.join(" ")
 
-  env.S3_URL = presignUrl(env.AWS_ACCESS_KEY_ID,  env.AWS_SECRET_ACCESS_KEY)
+  def S3_URL = presignUrl(env.AWS_ACCESS_KEY_ID,  env.AWS_SECRET_ACCESS_KEY)
 
   echo env.AWS_ACCESS_KEY_ID
   echo env.AWS_DEFAULT_REGION
   echo env.AWS_SUBNET_ID
   echo env.AWS_SECURITY_GROUPS
-  echo env.S3_URL
+  //echo env.S3_URL
 
   try {
     sh "vagrant up $BOX --destroy-on-error --provider=$PROVIDER"
