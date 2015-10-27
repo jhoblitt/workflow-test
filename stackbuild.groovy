@@ -89,7 +89,7 @@ fi
 set +o verbose
 
 source ./stack/loadLSST.bash
-eups distrib install ${ARGS[@]}
+eups distrib install \${ARGS[@]}
 END
 """
   }
