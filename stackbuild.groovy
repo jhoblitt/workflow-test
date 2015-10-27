@@ -69,6 +69,9 @@ node('vagrant') {
   echo env.AWS_SECURITY_GROUPS
   //echo env.S3_URL
 
+  // vagrant burned on 2015-10-27
+  env.CENTOS7_AMI = 'ami-2c0e7f46'
+
   try {
     sh "vagrant up $BOX --destroy-on-error --provider=$PROVIDER"
     sh """
