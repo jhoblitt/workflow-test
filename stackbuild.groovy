@@ -94,7 +94,7 @@ END
 """
     sh """
 vagrant ssh $BOX <<END
-tar -cz --file=/tmp/foo.tar.gz --directory=/home/lsstsw stack
+tar -cz --file=/tmp/foo.tar.gz --directory=/home/vagrant stack
 END
 """
 
