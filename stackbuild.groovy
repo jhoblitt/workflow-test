@@ -92,6 +92,18 @@ source ./stack/loadLSST.bash
 eups distrib install \${ARGS[@]}
 END
 """
+    sh """
+vagrant ssh $BOX <<END
+tar -cz --file=/tmp/foo.tar.gz --directory=/home/lsstsw stack
+END
+"""
+
+    sh """
+vagrant ssh $BOX <<END
+curl --upload-file /tmp/foo.tar.gz $S3_URL
+END
+"""
+
   }
   finally {
     sh "vagrant destroy --force $BOX"
