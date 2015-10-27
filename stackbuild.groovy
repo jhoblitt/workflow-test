@@ -61,7 +61,7 @@ node('vagrant') {
   env.AWS_SECURITY_GROUPS = security_group_ids.join(" ")
 
   def S3_URL = presignUrl(env.AWS_ACCESS_KEY_ID,  env.AWS_SECRET_ACCESS_KEY)
-  echo S3_URL
+  echo S3_URL.toString()
 
   echo env.AWS_ACCESS_KEY_ID
   echo env.AWS_DEFAULT_REGION
