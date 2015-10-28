@@ -14,7 +14,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.auth.BasicAWSCredentials;
 
-def presignUrl(id, key) {
+def presignUrl(id, key, objectKey) {
   def cred = new BasicAWSCredentials(id, key)
 
   //AmazonS3 s3Client = new AmazonS3Client(new ProfileCredentialsProvider());
@@ -26,7 +26,6 @@ def presignUrl(id, key) {
   expiration.setTime(msec);
 
   def bucketName = "jenkins-art-test"
-  def objectKey = "robin"
 
   GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, objectKey);
   generatePresignedUrlRequest.setMethod(HttpMethod.PUT);
@@ -60,7 +59,17 @@ node('vagrant') {
   env.AWS_SUBNET_ID = subnet_id
   env.AWS_SECURITY_GROUPS = security_group_ids.join(" ")
 
-  def S3_URL = presignUrl(env.AWS_ACCESS_KEY_ID,  env.AWS_SECRET_ACCESS_KEY)
+  def dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
+  def date = new java.util.Date()
+  def dateStamp = dateFormat.format(date)
+
+  def objectKey = "newinstall.sh-$BULID_ID-$BOX-$dateStamp.tar.gz"
+  echo "objectKey: $objectKey"
+
+  def S3_URL = presignUrl(
+      env.AWS_ACCESS_KEY_ID,
+      env.AWS_SECRET_ACCESS_KEY,
+      objectKey)
   echo S3_URL.toString()
 
   echo env.AWS_ACCESS_KEY_ID
