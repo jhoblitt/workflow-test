@@ -109,7 +109,7 @@ END
 vagrant ssh $BOX <<END
 set -o errexit
 
-curl --upload-file /tmp/foo.tar.gz '$S3_URL'
+curl --fail --upload-file /tmp/foo.tar.gz '$S3_URL'
 END
 """
 
