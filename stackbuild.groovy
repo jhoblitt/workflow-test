@@ -30,6 +30,7 @@ def presignUrl(id, key, objectKey) {
   GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, objectKey);
   generatePresignedUrlRequest.setMethod(HttpMethod.PUT);
   generatePresignedUrlRequest.setExpiration(expiration);
+  generatePresignedUrlRequest.addRequestParameter('x-amz-acl', 'public-read')
 
   URL s = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
   return s
@@ -119,7 +120,7 @@ END
 vagrant ssh $BOX <<END
 set -o errexit
 
-curl --fail --upload-file /tmp/foo.tar.gz '$S3_URL'
+curl --fail -H 'x-amz-acl: public-read' --upload-file /tmp/foo.tar.gz '$S3_URL'
 END
 """
 
