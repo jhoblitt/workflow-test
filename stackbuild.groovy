@@ -22,7 +22,7 @@ def presignUrl(id, key) {
 
   java.util.Date expiration = new java.util.Date();
   long msec = expiration.getTime();
-  msec += 1000 * 60 * 60; // Add 1 hour.
+  msec += 1000 * 60 * 180; // Add 3 hours.
   expiration.setTime(msec);
 
   def bucketName = "jenkins-art-test"
