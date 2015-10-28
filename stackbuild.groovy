@@ -68,6 +68,7 @@ node('vagrant') {
   echo env.AWS_SUBNET_ID
   echo env.AWS_SECURITY_GROUPS
   //echo env.S3_URL
+  echo "BUILD_ID: " + env.BUILD_ID
 
   // vagrant burned on 2015-10-27
   env.CENTOS7_AMI = 'ami-2c0e7f46'
