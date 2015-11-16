@@ -83,6 +83,8 @@ node('vagrant') {
   // vagrant burned on 2015-10-27
   env.CENTOS7_AMI = 'ami-2c0e7f46'
 
+  env.STACK_PATH= '/opt/lsst/software'
+
   try {
     sh "vagrant up $BOX --destroy-on-error --provider=$PROVIDER"
     sh """
@@ -103,7 +105,7 @@ if grep -q -i "CentOS release 6" /etc/redhat-release; then
 fi
 set +o verbose
 
-source ./stack/loadLSST.bash
+source ${STACK_PATH}/loadLSST.bash
 eups distrib install \${ARGS[@]}
 END
 """
