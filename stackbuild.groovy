@@ -60,7 +60,10 @@ node('vagrant') {
   env.AWS_SUBNET_ID = subnet_id
   env.AWS_SECURITY_GROUPS = security_group_ids.join(" ")
 
-  def dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
+  // attempt to copy the timestamp format we are using with packer
+  def dateFormat = new java.text.SimpleDateFormat("yyyyMMddHHmmss")
+  def tz = TimeZone.getTimeZone("Z")
+  dateFormat.setTimeZone(tz)
   def date = new java.util.Date()
   def dateStamp = dateFormat.format(date)
 
