@@ -114,7 +114,7 @@ vagrant ssh $BOX <<END
 set -o errexit
 
 sudo yum install -y pigz
-time tar -c --file=/tmp/foo.tar.gz --use-compress-program=pigz --directory=/home/vagrant stack
+time tar -c --file=/tmp/foo.tar.gz --use-compress-program=pigz --directory=${STACK_PATH} .
 END
 """
 
