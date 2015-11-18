@@ -67,7 +67,8 @@ node('vagrant') {
   def date = new java.util.Date()
   def dateStamp = dateFormat.format(date)
 
-  def objectKey = "newinstall.sh-${env.BUILD_ID}-${BOX}-${dateStamp}.tar.gz"
+  //def objectKey = "newinstall.sh-${env.BUILD_ID}-${BOX}-${dateStamp}.tar.gz"
+  def objectKey = "${BOX}-stack-${PRODUCTS}-${TAG}-${dateStamp}.tar.gz"
   echo "objectKey: $objectKey"
 
   def S3_URL = presignUrl(
