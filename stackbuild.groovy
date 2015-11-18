@@ -83,7 +83,7 @@ node('vagrant') {
   // vagrant burned on 2015-10-27
   env.CENTOS7_AMI = 'ami-2c0e7f46'
 
-  def STACK_PATH = '/opt/lsst/software'
+  def STACK_PATH = '/opt/lsst/software/stack'
 
   try {
     sh "vagrant up $BOX --destroy-on-error --provider=$PROVIDER"
