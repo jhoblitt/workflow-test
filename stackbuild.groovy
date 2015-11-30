@@ -67,6 +67,11 @@ node('vagrant') {
   def date = new java.util.Date()
   def dateStamp = dateFormat.format(date)
 
+  def DISPLAY_TAG = TAG
+  if (DISPLAY_TAG == "") {
+    DISPLAY_TAG = "master"
+  }
+
   //def objectKey = "newinstall.sh-${env.BUILD_ID}-${BOX}-${dateStamp}.tar.gz"
   def objectKey = "${BOX}-stack-${PRODUCTS}-${TAG}-${dateStamp}.tar.gz"
   echo "objectKey: $objectKey"
